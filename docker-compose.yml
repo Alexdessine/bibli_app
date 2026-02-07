@@ -1,0 +1,65 @@
+services:
+  server:
+    build:
+      context: ./server
+      target: dev
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=myapp
+      - DB_USER=appuser
+      - DB_PASSWORD=apppassword
+      - SMTP_HOST=mailpit
+      - SMTP_PORT=1025
+    volumes:
+      - ./server:/app
+      - server_node_modules:/app/node_modules
+    depends_on:
+      - db
+
+  client:
+    build:
+      context: ./client
+      target: dev
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    volumes:
+      - ./client:/app
+      - client_node_modules:/app/node_modules
+    depends_on:
+      - server
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=myapp
+      - MYSQL_USER=appuser
+      - MYSQL_PASSWORD=apppassword
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    depends_on:
+      - db
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+volumes:
+  mysql_data:
+  server_node_modules:
+  client_node_modules:
