@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import mysql from "mysql2/promise";
 
-
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT) || 3306,
@@ -16,8 +15,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/api/about", (req, res) => {
+    res.type("text/plain")
+    res.send("Je suis une application basique")
+});
+
 app.get("/api/health", (req, res) => {
     res.json({ ok: true });
+});
+
+app.use('/users', async (req, res) => {
+    try {
+        const [rows] = await pool.query("SELECT * FROM users");
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 export default app;

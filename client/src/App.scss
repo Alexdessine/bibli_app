@@ -1,5 +1,6 @@
 @use "./styles/variables";
 @use "./styles/mixins";
+@use "./styles/main.scss";
 
 #root {
   max-width: 1280px;

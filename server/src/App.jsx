@@ -10,6 +10,13 @@ function App() {
             .catch(err => console.error(err));
     }, []);
 
+    useEffect(() => {
+        fetch("/api/about")
+            .then(res => res.text())
+            .then(data => console.log(data))
+            .catch(err => console.error(err));
+    }, []);
+
     return (
         <div>
             <h1>API status: {status ? "OK" : "Loading..."}</h1>

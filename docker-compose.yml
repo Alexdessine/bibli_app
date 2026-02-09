@@ -4,7 +4,7 @@ services:
       context: ./server
       target: dev
     ports:
-      - "3000"              # host dynamique -> conteneur 3000
+      - "3000:3000"              # host dynamique -> conteneur 3000
     environment:
       - PORT=3000           # conteneur écoute sur 3000
       - DB_HOST=db
@@ -26,7 +26,7 @@ services:
       context: ./client
       target: dev
     ports:
-      - "5173"              # host dynamique -> conteneur 5173
+      - "5173:5173"              # host dynamique -> conteneur 5173
     volumes:
       - ./client:/app
       - client_node_modules:/app/node_modules
@@ -47,7 +47,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
-      - "8080"           # fixe (ou "80" pour dynamique)
+      - "8080:80"           # fixe (ou "80" pour dynamique)
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
@@ -57,8 +57,8 @@ services:
   mailpit:
     image: axllent/mailpit
     ports:
-      - "8025"         # fixe (ou "8025" pour dynamique)
-      - "1025"         # fixe (ou "1025" pour dynamique)
+      - "8025:8025"         # fixe (ou "8025" pour dynamique)
+      - "1025:1025"         # fixe (ou "1025" pour dynamique)
 
 volumes:
   mysql_data:
