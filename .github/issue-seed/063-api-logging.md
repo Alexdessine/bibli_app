@@ -1,3 +1,4 @@
+# Logs structurés (requêtes + erreurs)
 
 ## Objectif
 

@@ -1,3 +1,5 @@
+# DDL : créer toutes les tables (schéma initial)
+
 ## Objectif
 
 Traduire le modèle fonctionnel en schéma SQL (tables + relations) pour MySQL 8.

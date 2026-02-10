@@ -1,3 +1,5 @@
+# Initialiser la structure du projet (monorepo)
+
 ## Objectif
 
 Mettre en place la structure du dépôt (client/, server/, docs/) et garantir un lancement conforme au squelette Docker.

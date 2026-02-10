@@ -1,3 +1,5 @@
+# Standardiser le .env (client/server/compose)
+
 ## Objectif
 
 Centraliser et documenter les variables d’environnement nécessaires (DB, ports, CORS, Google Books, JWT…).

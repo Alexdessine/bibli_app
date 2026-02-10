@@ -1,3 +1,4 @@
+# Catalogue : GET /books (recherches + pagination) & GET /books/:id
 
 ## Objectif
 

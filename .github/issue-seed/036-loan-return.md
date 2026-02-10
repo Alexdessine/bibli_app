@@ -1,3 +1,4 @@
+# Retour : POST /loans/:id/return (historique conservé)
 
 ## Objectif
 

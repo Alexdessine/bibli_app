@@ -1,3 +1,4 @@
+# Notifications (in-app / email via mailpit)
 
 ## Objectif
 

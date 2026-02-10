@@ -1,3 +1,5 @@
+# Connexion MySQL (pool) + gestion erreurs standard
+
 ## Objectif
 
 Connecter l’API à MySQL et standardiser les erreurs JSON.

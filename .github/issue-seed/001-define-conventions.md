@@ -1,3 +1,5 @@
+# Conventions (noms, statuts, erreurs API, commits)
+
 ## Objectif
 
 Documenter les conventions du projet : naming DB/API, statuts (loan_requests), format d’erreurs, convention de commits.

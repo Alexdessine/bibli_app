@@ -1,3 +1,4 @@
+# Catégories : GET /categories + association livre-categorie
 
 ## Objectif
 

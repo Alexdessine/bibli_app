@@ -1,3 +1,4 @@
+# Recherche proximité : GET /books/nearby (copies + distance)
 
 ## Objectif
 
