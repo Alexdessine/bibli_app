@@ -1,3 +1,4 @@
+# Profil : GET /me (données publiques vs privées)
 
 ## Objectif
 

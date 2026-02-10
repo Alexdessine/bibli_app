@@ -1,3 +1,4 @@
+# Sécurité minimale (validation entrées + rate-limit auth)
 
 ## Objectif
 

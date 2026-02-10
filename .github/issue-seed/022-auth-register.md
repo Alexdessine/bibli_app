@@ -1,3 +1,4 @@
+# Auth : register (création user + hash password)
 
 ## Objectif
 

@@ -1,3 +1,4 @@
+# Requests : vue "envoyées / reçues" + actions (accept/reject/cancel)
 
 ## Objectif
 

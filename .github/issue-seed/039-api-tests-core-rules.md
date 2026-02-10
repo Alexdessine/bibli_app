@@ -1,3 +1,4 @@
+# Tests API (règles critiques : auth, demande->prêt, avis unique)
 
 ## Objectif
 

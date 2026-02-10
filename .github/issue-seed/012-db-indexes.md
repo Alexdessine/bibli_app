@@ -1,3 +1,5 @@
+# Index de performance (recherche / filtres / proximité)
+
 ## Objectif
 
 Optimiser les requêtes fréquentes via des index adaptés.

@@ -1,3 +1,5 @@
+# Seed : catégories + données de démo
+
 ## Objectif
 
 Fournir des données de base pour tester l’application en local.

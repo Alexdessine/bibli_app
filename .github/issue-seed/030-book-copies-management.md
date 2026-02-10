@@ -1,3 +1,4 @@
+# Exemplaires : POST /book-copies + gestion owner (CRUD minimal)
 
 ## Objectif
 

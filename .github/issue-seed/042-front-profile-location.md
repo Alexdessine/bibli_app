@@ -1,3 +1,4 @@
+# Profil : afficher / éditer localisation (géoloc navigateur)
 
 ## Objectif
 
