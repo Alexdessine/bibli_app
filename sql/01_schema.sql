@@ -24,6 +24,8 @@ DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS user_location;
 DROP TABLE IF EXISTS users;
 
+START TRANSACTION;
+
 -- ---------------------------------------------------------
 -- Création de la table users
 -- ---------------------------------------------------------
@@ -33,7 +35,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
@@ -42,7 +44,7 @@ CREATE TABLE users (
 -- ---------------------------------------------------------
 CREATE TABLE user_location (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNSIGNED NOT NULL,
+    user_id INT NOT NULL,
     address VARCHAR(255) NOT NULL,
     city VARCHAR(100) NOT NULL,
     postal_code VARCHAR(20) NOT NULL,
@@ -69,10 +71,10 @@ CREATE TABLE books (
     language VARCHAR(50) NULL,
     publication_date INT NULL,
     page_count INT NULL,
-    created_by_user_id INT UNSIGNED NOT NULL,
+    created_by_user_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by_user_id) REFERENCES users(id) ON DELETE SET NULL
+    FOREIGN KEY (created_by_user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- ---------------------------------------------------------
@@ -91,8 +93,8 @@ CREATE TABLE categories (
 -- ---------------------------------------------------------
 CREATE TABLE book_categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    book_id INT UNSIGNED NOT NULL,
-    category_id INT UNSIGNED NOT NULL,
+    book_id INT NOT NULL,
+    category_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
@@ -104,9 +106,9 @@ CREATE TABLE book_categories (
 -- ---------------------------------------------------------
 CREATE TABLE book_copies (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    book_id INT UNSIGNED NOT NULL,
-    owner_user_id INT UNSIGNED NOT NULL,
-    condition ENUM('new', 'good', 'worn', 'damaged') NOT NULL DEFAULT 'good',
+    book_id INT NOT NULL,
+    owner_user_id INT NOT NULL,
+    condition_state ENUM('new', 'good', 'worn', 'damaged') NOT NULL DEFAULT 'good',
     owner_note DECIMAL(3, 2) NULL,
     status ENUM('available', 'loaned', 'reserved') NOT NULL DEFAULT 'available',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -120,8 +122,8 @@ CREATE TABLE book_copies (
 -- ---------------------------------------------------------
 CREATE TABLE book_reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    book_id INT UNSIGNED NOT NULL,
-    user_id INT UNSIGNED NOT NULL,
+    book_id INT NOT NULL,
+    user_id INT NOT NULL,
     rating DECIMAL(3, 2) NOT NULL CHECK (rating >= 0 AND rating <= 5),
     comment TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -135,9 +137,9 @@ CREATE TABLE book_reviews (
 -- ---------------------------------------------------------
 CREATE TABLE loan_requests (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    book_copy_id INT UNSIGNED NOT NULL,
-    requester_user_id INT UNSIGNED NOT NULL,
-    owner_user_id INT UNSIGNED NOT NULL,
+    book_copy_id INT NOT NULL,
+    requester_user_id INT NOT NULL,
+    owner_user_id INT NOT NULL,
     status ENUM('pending', 'approved', 'rejected', 'cancelled') NOT NULL DEFAULT 'pending',
     requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     decided_at TIMESTAMP NULL,
@@ -153,10 +155,10 @@ CREATE TABLE loan_requests (
 -- ---------------------------------------------------------
 CREATE TABLE loans (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    book_copy_id INT UNSIGNED NOT NULL,
-    borrower_user_id INT UNSIGNED NOT NULL,
-    owner_user_id INT UNSIGNED NOT NULL,
-    loan_request_id INT UNSIGNED NULL,
+    book_copy_id INT NOT NULL,
+    borrower_user_id INT NOT NULL,
+    owner_user_id INT NOT NULL,
+    loan_request_id INT NULL,
     loaned_at DATE NOT NULL,
     due_at DATE NOT NULL,
     return_date DATE NULL,
@@ -174,8 +176,8 @@ CREATE TABLE loans (
 -- ---------------------------------------------------------
 CREATE TABLE request_messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    loan_request_id INT UNSIGNED NOT NULL,
-    sender_user_id INT UNSIGNED NOT NULL,
+    loan_request_id INT NOT NULL,
+    sender_user_id INT NOT NULL,
     message TEXT NOT NULL,
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     read_at TIMESTAMP NULL,
@@ -185,3 +187,4 @@ CREATE TABLE request_messages (
     FOREIGN KEY (sender_user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+COMMIT;
