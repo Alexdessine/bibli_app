@@ -108,9 +108,6 @@ INSERT INTO book_categories (book_id, category_id) VALUES
 INSERT INTO book_copies (book_id, owner_user_id, condition_state, owner_note, status)
 VALUES (@book_1984_id, @owner_id, 'good', 4.50, 'available');
 
--- IMPORTANT :
--- Si tu n’as PAS renommé la colonne et qu’elle s’appelle encore `condition`,
--- remplace "condition_state" par `condition` (avec backticks).
 SET @copy_1984_id := LAST_INSERT_ID();
 
 -- ---------------------------------------------------------
